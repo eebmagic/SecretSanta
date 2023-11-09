@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 
 import io
 
+from encrypt import saveFiles
+
 
 def genGraph(N):
     if type(N) == int:
@@ -37,23 +39,31 @@ def genGraph(N):
     return G, edges
 
 
+# Load the names
 with open('names.json') as file:
     names = json.load(file)
 print(f"There are: {len(names)} names")
 
+
+# Make the graph
 G, edges = genGraph(names)
 edgeStr = json.dumps(edges, indent=2)
-print(edgeStr)
 
-
+# Make the plot image
 pos = nx.planar_layout(G)
 nx.draw(G, pos, with_labels=True)
-plt.show()
 
-# Optionally get bytes for plot image
+## Get bytes for plot image
 imgData = io.BytesIO()
-plt.savefig(img_data, format='PNG', bbox_inches='tight')
-plt.close()
+plt.savefig(imgData, format='PNG', bbox_inches='tight')
 imgData.seek(0)
 plotBytes = imgData.getvalue()
+
+
+# Encrypt and save the results (with a key file)
+saveFiles(edgeStr, plotBytes)
+
+
+print(edgeStr)
+plt.show()
 
