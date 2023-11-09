@@ -1,5 +1,7 @@
 __pycache__/
+
+results/graphPlot.png
+results/map.json
+
 decrypt.py
-graphPlot.png
-map.json
 
