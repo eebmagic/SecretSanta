@@ -10,7 +10,7 @@ import io
 from encrypt import saveFiles
 
 
-def genGraph(N):
+def genGraph(N, banned={}):
     if type(N) == int:
         available = list(range(N))
     elif type(N) == list:
@@ -28,7 +28,21 @@ def genGraph(N):
     validShuffle = False
     while not validShuffle:
         random.shuffle(available)
-        validShuffle = not any([name == available[i] for i, name in enumerate(original)])
+
+        # Check that no one is buying for themselves
+        noSelfLoops = not any([name == available[i] for i, name in enumerate(original)])
+
+        # Check that there are no pairs on the blacklist
+        noBannedEdges = True
+        for i, name in enumerate(original):
+            buysFor = available[i]
+            if (name in banned):
+                if (buysFor in banned[name]):
+                    print(f"Reshuffling because of breaking edge: {name} -> {buysFor}")
+                    noBannedEdges = False
+                    break
+
+        validShuffle = noSelfLoops and noBannedEdges
 
 
     # Add edges to graph
@@ -41,12 +55,18 @@ def genGraph(N):
 
 # Load the names
 with open('names.json') as file:
-    names = json.load(file)
+    data = json.load(file)
+    names = data['names']
+    bannedPairs = data['bannedPairs']
 print(f"There are: {len(names)} names")
+bans = {}
+for a, b in bannedPairs:
+    bans[a] = bans.get(a, []) + [b]
+    bans[b] = bans.get(b, []) + [a]
 
 
 # Make the graph
-G, edges = genGraph(names)
+G, edges = genGraph(names, banned=bans)
 edgeStr = json.dumps(edges, indent=2)
 
 # Make the plot image

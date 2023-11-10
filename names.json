@@ -1,16 +1,25 @@
-[
-  "Everett",
-  "Zack",
-  "Quinn",
-  "Effie",
-  "Lonnie",
-  "Adam",
-  "Xavian",
-  "Allison",
-  "Sarah",
-  "Austin",
-  "Gayatri",
-  "Jordan",
-  "Randy",
-  "Sagar"
-]
+{
+  "names": [
+    "Everett",
+    "Zack",
+    "Quinn",
+    "Effie",
+    "Lonnie",
+    "Adam",
+    "Xavian",
+    "Allison",
+    "Sarah",
+    "Austin",
+    "Gayatri",
+    "Jordan",
+    "Randy",
+    "Sagar",
+    "Will"
+  ],
+  "bannedPairs": [
+    [
+      "Allison",
+      "Will"
+    ]
+  ]
+}
