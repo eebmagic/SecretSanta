@@ -7,13 +7,15 @@ app.use(cors());
 app.use(express.json());
 
 const users = {
-  "admin": "$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92CENW19eW8FhK2Z4a3eC" // bcrypt hash for "password"
+  "admin": "$2b$10$ISODk4TBGcsUo1RB04mhO.4WPNfEMDvjaOXiGQYpvjs8qNOfaUgQO"
 };
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
+
   console.log(`Login attempt for ${username}: ${password}`);
-  console.log(`Comparison: ${bcrypt.hashSync(password, 10)} ${users[username]}`)
+  console.log(`Comparison:\n\t${users[username]}\n\t${await bcrypt.compare(password, users[username])}`);
+
   if (users[username] && await bcrypt.compare(password, users[username])) {
     res.status(200).send("Login successful");
   } else {
