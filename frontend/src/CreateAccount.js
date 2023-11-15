@@ -71,7 +71,7 @@ function CreateAccount({ onSwitchToLogin }) {
         />
       </div>
       <div>
-        <label>First Name:</label>
+        <label>Name:</label>
         <input
           type="text"
           value={firstname}

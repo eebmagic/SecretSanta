@@ -44,7 +44,7 @@ function App() {
             <h1>Success!</h1>
             <div className="user-info">
               <p>Username: {userdata.username}</p>
-              <p>First name: {userdata.firstname}</p>
+              <p>Name: {userdata.firstname}</p>
               <p>Contact info: {userdata.contact}</p>
             </div>
             <div>
