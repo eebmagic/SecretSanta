@@ -12,13 +12,27 @@ var users = JSON.parse(fs.readFileSync('users.json'));
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   users = JSON.parse(fs.readFileSync('users.json'));
+
+  if (!users[username]) {
+    res.status(401).send("Invalid credentials: User does not exist");
+    return;
+  }
+  if (!username || !password) {
+    res.status(401).send("Invalid credentials: Missing username or password");
+    return;
+  }
+
   const validHash = users[username].password;
 
-  console.log(`Login attempt for ${username}: ${password}`);
-  console.log(`Comparison: ${await bcrypt.compare(password, validHash)}`);
+  // console.log(`Login attempt for ${username}: ${password}`);
+  // console.log(`Comparison: ${await bcrypt.compare(password, validHash)}`);
 
   if (users[username] && await bcrypt.compare(password, validHash)) {
-    res.status(200).send("Login successful");
+    res.status(200).send({
+      username: username,
+      firstname: users[username].firstname,
+      contact: users[username].contact
+    });
     console.log(`User ${username} logged in`)
   } else {
     res.status(401).send("Invalid credentials");

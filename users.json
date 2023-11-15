@@ -1,6 +1,17 @@
 {
   "admin": {
     "firstname": "Admin",
-    "password": "$2b$10$ISODk4TBGcsUo1RB04mhO.4WPNfEMDvjaOXiGQYpvjs8qNOfaUgQO"
+    "password": "$2b$10$ISODk4TBGcsUo1RB04mhO.4WPNfEMDvjaOXiGQYpvjs8qNOfaUgQO",
+    "contact": ""
+  },
+  "eebmagic": {
+    "firstname": "Everett",
+    "password": "$2b$10$aWoBX5i0oB3fnD2ROeor8OC7H2JkMNiGouC0hIoRoizPzfmJ6TGV.",
+    "contact": "third attempt"
+  },
+  "another": {
+    "firstname": "thirdname",
+    "password": "$2b$10$i7SjV1Q7m5YCvQr8hpFEeOEUtLga1Y6wZKox08Ok1kW8.T3g2K6pW",
+    "contact": "sdlfkjsldkfj"
   }
 }
