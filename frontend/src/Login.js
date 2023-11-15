@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ENDPOINT = "http://localhost:5050/login";
+const ENDPOINT = "https://fishbowl.lol:5050/login";
 
 function Login({ onSwitchToCreateAccount, onLoginSuccess, onGetUserData }) {
   const [username, setUsername] = useState('');
