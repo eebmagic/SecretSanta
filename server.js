@@ -2,15 +2,24 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const fs = require('fs');
+const https = require('https');
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+const options = {
+    key: fs.readFileSync(path.join(__dirname, 'ssl/fishbowl.lol.key')),
+    cert: fs.readFileSync(path.join(__dirname, 'ssl/fishbowl_lol.crt')),
+    ca: fs.readFileSync(path.join(__dirname, 'ssl/fishbowl_lol.ca-bundle')),
+}
+
 var users = JSON.parse(fs.readFileSync('users.json'));
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
+  console.log(`Login attempt for ${username}: ${password}`);
   users = JSON.parse(fs.readFileSync('users.json'));
 
   if (!users[username]) {
@@ -65,4 +74,6 @@ app.post('/create', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5050;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+https.createServer(options, app).listen(PORT, () => {
+    console.log(`HTTPS server running on port 5050`);
+});
