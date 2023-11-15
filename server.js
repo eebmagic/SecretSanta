@@ -28,11 +28,13 @@ app.post('/login', async (req, res) => {
   // console.log(`Comparison: ${await bcrypt.compare(password, validHash)}`);
 
   if (users[username] && await bcrypt.compare(password, validHash)) {
-    res.status(200).send({
+    const body = {
       username: username,
       firstname: users[username].firstname,
       contact: users[username].contact
-    });
+    };
+    res.status(200).send(body);
+
     console.log(`User ${username} logged in`)
   } else {
     res.status(401).send("Invalid credentials");
