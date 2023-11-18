@@ -16,7 +16,7 @@ with open('results/map.json.enc') as file:
 unassigned = []
 for user in users:
     try:
-        asigned = usermap[user]
+        assigned = usermap[user]
     except KeyError:
         unassigned.append(user)
 
@@ -25,4 +25,4 @@ if unassigned:
     for u in unassigned:
         print(f"\t{u}")
 else:
-    print("ALL ASIGNED :)")
+    print("ALL ASSIGNED :)")
