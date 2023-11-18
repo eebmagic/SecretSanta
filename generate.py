@@ -1,14 +1,18 @@
 import numpy as np
 import random
 import json
+import io
+import argparse
 
 import networkx as nx
 import matplotlib.pyplot as plt
 
-import io
-
 from encrypt import saveFiles
 
+
+parser = argparse.ArgumentParser(description='Generate a secret santa graph')
+parser.add_argument('--silent', action='store_true', help='Do not display the graph')
+args = parser.parse_args()
 
 def genGraph(N, banned={}):
     if type(N) == int:
@@ -92,5 +96,6 @@ saveFiles(edgeStr, plotBytes)
 
 
 # Optionally display results
-print(edgeStr)
-plt.show()
+if not args.silent:
+    print(edgeStr)
+    plt.show()
