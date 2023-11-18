@@ -1,5 +1,6 @@
 .customLoginPanel {
     width: 400px; /* Fixed width */
+    max-width: 98vw;
     margin: auto; /* Center the panel */
     padding-top: 20px;
 }
