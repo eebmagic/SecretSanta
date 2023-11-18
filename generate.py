@@ -94,6 +94,10 @@ plotBytes = imgData.getvalue()
 # Encrypt and save the results (with a key file)
 saveFiles(edgeStr, plotBytes)
 
+# Rest the logins file (no users have seen the latest results)
+with open('logins.json', 'w') as file:
+    logs = {user: None for user in users}
+    json.dump(logs, file, indent=2)
 
 # Optionally display results
 if not args.silent:

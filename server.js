@@ -5,15 +5,16 @@ const fs = require('fs');
 const https = require('https');
 const path = require('path');
 const Fernet = require('fernet');
+const moment = require('moment-timezone');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const options = {
-    key: fs.readFileSync(path.join(__dirname, 'ssl/fishbowl.lol.key')),
-    cert: fs.readFileSync(path.join(__dirname, 'ssl/fishbowl_lol.crt')),
-    ca: fs.readFileSync(path.join(__dirname, 'ssl/fishbowl_lol.ca-bundle')),
+  key: fs.readFileSync(path.join(__dirname, 'ssl/fishbowl.lol.key')),
+  cert: fs.readFileSync(path.join(__dirname, 'ssl/fishbowl_lol.crt')),
+  ca: fs.readFileSync(path.join(__dirname, 'ssl/fishbowl_lol.ca-bundle')),
 }
 
 var users = JSON.parse(fs.readFileSync('users.json'));
@@ -38,6 +39,15 @@ const getAssignee = (username) => {
     console.error('Decryption failed:', error);
     return null;
   }
+}
+
+// Updates the last time a user logged in
+const updateLogin = (username) => {
+  const logins = JSON.parse(fs.readFileSync('logins.json'));
+  const estTime = moment().tz('America/New_York').format('YYYY-MM-DD HH:mm:ss');
+  logins[username] = estTime;
+  fs.writeFileSync('logins.json', JSON.stringify(logins, null, 2));
+  console.log(`User ${username} logged in: ${estTime}`);
 }
 
 app.post('/login', async (req, res) => {
@@ -69,7 +79,7 @@ app.post('/login', async (req, res) => {
     };
     res.status(200).send(body);
 
-    console.log(`User ${username} logged in`)
+    updateLogin(username);
   } else {
     res.status(401).send("Invalid credentials");
   }
@@ -101,5 +111,5 @@ app.post('/create', async (req, res) => {
 const PORT = process.env.PORT || 5050;
 https.createServer(options, app).listen(PORT, () => {
 // app.listen(PORT, () => {
-    console.log(`HTTPS server running on port 5050`);
+  console.log(`HTTPS server running on port 5050`);
 });
