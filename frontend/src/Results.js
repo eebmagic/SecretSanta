@@ -1,14 +1,24 @@
 import React from 'react';
 import { Panel } from 'primereact/panel';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 import styles from './Results.module.css';
 
 function Results({ data, showResults }) {
-    // Check if data and its nested properties exist
+    const toast = React.useRef(null);
+
+    const copyToClipboard = () => {
+        toast.current.show({
+            severity: 'success',
+            summary: 'Copied to clipboard!',
+        });
+        navigator.clipboard.writeText(data.assignee.contact);
+    }
 
     if (showResults) {
         return (
             <Panel header="Secret Santa Assignment 🎅🎄" className={styles.customResultsPanel}>
+                <Toast ref={toast} />
                 <p className={styles.customParagraph}>
                     Hi <strong>{data.firstname}</strong>
                 </p>
@@ -23,7 +33,7 @@ function Results({ data, showResults }) {
                     <Button
                         icon="pi pi-copy"
                         className="p-button-rounded p-button-text"
-                        onClick={() => navigator.clipboard.writeText(data.assignee.contact)}
+                        onClick={copyToClipboard}
                     />
                 </div>
             </Panel>
