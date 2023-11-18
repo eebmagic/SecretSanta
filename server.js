@@ -4,6 +4,7 @@ const cors = require('cors');
 const fs = require('fs');
 const https = require('https');
 const path = require('path');
+const Fernet = require('fernet');
 
 const app = express();
 app.use(cors());
@@ -17,9 +18,31 @@ const options = {
 
 var users = JSON.parse(fs.readFileSync('users.json'));
 
+const getAsignee = (username) => {
+  const key = fs.readFileSync('results/key.key', { encoding: 'utf-8' });
+  const encrypted = fs.readFileSync('results/map.json.enc', { encoding: 'utf-8' });
+
+  const token = new Fernet.Token({
+    secret: new Fernet.Secret(key),
+    token: encrypted,
+    ttl: 0
+  });
+
+  try {
+    const decoded = token.decode();
+    const map = JSON.parse(decoded);
+
+    const asignee = map[username];
+    return asignee;
+  } catch (error) {
+    console.error('Decryption failed:', error);
+    return null;
+  }
+}
+
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  console.log(`Login attempt for ${username}: ${password}`);
+  console.log(`Login attempt for ${username}`);
   users = JSON.parse(fs.readFileSync('users.json'));
 
   if (!users[username]) {
@@ -33,14 +56,16 @@ app.post('/login', async (req, res) => {
 
   const validHash = users[username].password;
 
-  // console.log(`Login attempt for ${username}: ${password}`);
-  // console.log(`Comparison: ${await bcrypt.compare(password, validHash)}`);
-
   if (users[username] && await bcrypt.compare(password, validHash)) {
+    const asignee = getAsignee(username);
+    const asigneeBody = users[asignee];
+    delete asigneeBody.password
+
     const body = {
       username: username,
       firstname: users[username].firstname,
-      contact: users[username].contact
+      contact: users[username].contact,
+      asignee: asigneeBody
     };
     res.status(200).send(body);
 
@@ -54,7 +79,7 @@ app.post('/create', async (req, res) => {
   users = JSON.parse(fs.readFileSync('users.json'));
   const { username, firstname, password, contact } = req.body;
 
-  console.log(`Creating account for ${username}: ${password}`);
+  console.log(`Creating account for ${username}: ${firstname}`);
 
   if (users[username]) {
     res.status(409).send("Username already exists");
@@ -68,12 +93,13 @@ app.post('/create', async (req, res) => {
     };
 
     fs.writeFileSync('users.json', JSON.stringify(users, null, 2));
-    console.log(`Created user entry for ${username}`);
+    console.log(`Successfully created user entry for ${username}`);
     res.status(201).send("Account created");
   }
 });
 
 const PORT = process.env.PORT || 5050;
 https.createServer(options, app).listen(PORT, () => {
+// app.listen(PORT, () => {
     console.log(`HTTPS server running on port 5050`);
 });
