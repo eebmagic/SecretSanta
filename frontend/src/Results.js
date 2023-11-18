@@ -1,5 +1,6 @@
 import React from 'react';
 import { Panel } from 'primereact/panel';
+import { Button } from 'primereact/button';
 import styles from './Results.module.css';
 
 function Results({ data, showResults }) {
@@ -17,9 +18,14 @@ function Results({ data, showResults }) {
                 <p className={styles.customParagraph}>
                     If you need to get in contact for gift swapping, you can contact them here:
                 </p>
-                <p className={styles.contactInfo}>
-                    <strong>{data.assignee.contact}</strong>
-                </p>
+                <div className={styles.contactInfo}>
+                    <p className={styles.contactInfoText}> <strong>{data.assignee.contact}</strong> </p>
+                    <Button
+                        icon="pi pi-copy"
+                        className="p-button-rounded p-button-text"
+                        onClick={() => navigator.clipboard.writeText(data.assignee.contact)}
+                    />
+                </div>
             </Panel>
         );
 

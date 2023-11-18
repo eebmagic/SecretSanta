@@ -14,8 +14,14 @@
 }
 
 .contactInfo {
-    text-align: center; /* Centers the text horizontally */
     margin-bottom: 1em; /* Optional, for consistent spacing */
+    display: flex; /* Use flexbox for layout */
+    align-items: center;
+    justify-content: center;
+}
+
+.contactInfoText {
+    margin-right: 5px; /* Space between icon and text */
 }
 
 .customField label {
