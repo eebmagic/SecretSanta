@@ -1,0 +1,20 @@
+.customCreateAccountPanel {
+    width: 400px; /* Fixed width */
+    margin: auto; /* Center the panel */
+}
+
+.spacer {
+    height: 20px; /* Space between fields */
+}
+
+.customField label {
+    flex: 0 0 100px; /* Adjust label width */
+    margin-right: 10px; /* Space between label and input box */
+    text-align: right; /* Align text to the right */
+}
+
+.customField {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Align items vertically */
+    margin-bottom: 10px; /* Space between fields */
+}

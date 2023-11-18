@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './App.css'
 
 import 'primereact/resources/themes/saga-blue/theme.css';  //theme
@@ -7,6 +7,8 @@ import 'primereact/resources/primereact.min.css';          //core css
 import Login from './Login.js';
 import CreateAccount from './CreateAccount.js';
 
+import { Toast } from 'primereact/toast';
+
 
 function App() {
   const [showLogin, setShowLogin] = useState(true);
@@ -14,8 +16,11 @@ function App() {
   const [showResult, setShowResult] = useState(false);
   const [userdata, setUserData] = useState({});
 
+  const toast = useRef(null);
+
   return (
     <div>
+      <Toast ref={toast} />
       {
         showLogin ? (
           <Login
@@ -35,10 +40,20 @@ function App() {
       }
       {
         showCreateAccount ? (
-          <CreateAccount onSwitchToLogin={() => {
-            setShowLogin(true);
-            setShowCreateAccount(false);
-          }} />
+          <CreateAccount
+            onSwitchToLogin={() => {
+              setShowLogin(true);
+              setShowCreateAccount(false);
+            }}
+            onAccountCreated={() => {
+              toast.current.show({
+                severity: 'success',
+                summary: 'Account Created!',
+                detail: 'You should now be able to log in with your username/password',
+                life: 3000
+              })
+            }}
+          />
         ) : null
       }
       {
