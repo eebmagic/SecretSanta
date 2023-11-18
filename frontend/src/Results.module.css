@@ -1,7 +1,20 @@
-.customLoginPanel {
+.customResultsPanel {
     width: 400px; /* Fixed width */
     margin: auto; /* Center the panel */
     padding-top: 20px;
+}
+
+.spacer {
+    height: 20px; /* Space between fields */
+}
+
+.customParagraph {
+    margin-bottom: 1em; /* Adjust as needed for spacing */
+}
+
+.contactInfo {
+    text-align: center; /* Centers the text horizontally */
+    margin-bottom: 1em; /* Optional, for consistent spacing */
 }
 
 .customField label {

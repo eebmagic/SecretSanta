@@ -9,7 +9,7 @@ import styles from './Login.module.css';
 
 const ENDPOINT = "https://fishbowl.lol:5050/login";
 
-function Login({ onSwitchToCreateAccount, onLoginSuccess, onGetUserData }) {
+function Login({ onSwitchToCreateAccount, onLoginSuccess }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -58,9 +58,8 @@ function Login({ onSwitchToCreateAccount, onLoginSuccess, onGetUserData }) {
       if (response.ok) {
         const data = await response.json();
         console.log(`User ${username} logged in!`);
-        console.log(data);
-        onGetUserData(data);
-        onLoginSuccess();
+        // console.log(data);
+        onLoginSuccess(data);
       } else {
         if (response.status === 401) {
           showInvalidCreds();

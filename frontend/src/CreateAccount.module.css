@@ -1,6 +1,7 @@
 .customCreateAccountPanel {
     width: 400px; /* Fixed width */
     margin: auto; /* Center the panel */
+    padding-top: 20px;
 }
 
 .spacer {

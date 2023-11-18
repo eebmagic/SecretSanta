@@ -6,9 +6,11 @@ import 'primereact/resources/primereact.min.css';          //core css
 
 import Login from './Login.js';
 import CreateAccount from './CreateAccount.js';
+import Results from './Results.js'
 
 import { Toast } from 'primereact/toast';
 
+const SHOW_ASSIGNMENT = false;
 
 function App() {
   const [showLogin, setShowLogin] = useState(true);
@@ -28,11 +30,10 @@ function App() {
               setShowLogin(false);
               setShowCreateAccount(true);
             }} 
-            onLoginSuccess={() => {
+            onLoginSuccess={(data) => {
               setShowLogin(false);
               setShowResult(true);
-            }}
-            onGetUserData={(data) => {
+
               setUserData(data);
             }}
           />
@@ -58,22 +59,10 @@ function App() {
       }
       {
         showResult ? (
-          <div>
-            <h1>Success!</h1>
-            <div className="user-info">
-              <p>Username: {userdata.username}</p>
-              <p>Name: {userdata.firstname}</p>
-              <p>Contact info: {userdata.contact}</p>
-            </div>
-            <div>
-              <p><b>🎅🎄 Santa pairings aren't out yet, but when they are you'll be able to find them here :)</b></p>
-            </div>
-
-            <button onClick={() => {
-              setShowResult(false);
-              setShowLogin(true);
-            }}>Back to Login</button>
-          </div>
+          <Results
+            data={userdata}
+            showResults={SHOW_ASSIGNMENT}
+          />
         ) : null
       }
     </div>
