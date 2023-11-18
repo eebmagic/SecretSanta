@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import { Panel } from 'primereact/panel';
+
+import styles from './Login.module.css';
 
 const ENDPOINT = "https://fishbowl.lol:5050/login";
 
@@ -9,8 +14,6 @@ function Login({ onSwitchToCreateAccount, onLoginSuccess, onGetUserData }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Handle login logic here
-
-    // console.log(`Login attempt for ${username}: ${password}`)
 
     const response = await fetch(ENDPOINT, {
       method: 'POST',
@@ -23,7 +26,6 @@ function Login({ onSwitchToCreateAccount, onLoginSuccess, onGetUserData }) {
     if (response.ok) {
       const data = await response.json();
       console.log(`User ${username} logged in!`);
-      // alert(`User ${username} logged in!`);
       console.log(data);
       onGetUserData(data);
       onLoginSuccess();
@@ -33,30 +35,36 @@ function Login({ onSwitchToCreateAccount, onLoginSuccess, onGetUserData }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <div>
-        <label>Username:</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <button type="submit">Login</button>
-      <button type="button" onClick={onSwitchToCreateAccount}>
-        Create Account
-      </button>
-    </form>
-  );
+    <Panel header="Login" className={styles.customLoginPanel}>
+      <form onSubmit={handleSubmit}>
+        <div className={styles.customField}>
+          <label htmlFor="username">Username</label>
+          <InputText
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div className={styles.customField}>
+          <label htmlFor="password">Password</label>
+          <InputText
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className={styles.customField}>
+          <Button label="Login" />
+        </div>
+      </form>
+
+      <Button
+        label="Create Account"
+        onClick={(event) => onSwitchToCreateAccount() }
+      />
+    </Panel>
+  )
 }
 
 export default Login;

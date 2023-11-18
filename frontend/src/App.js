@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './App.css'
 
+import 'primereact/resources/themes/saga-blue/theme.css';  //theme
+import 'primereact/resources/primereact.min.css';          //core css
+
 import Login from './Login.js';
 import CreateAccount from './CreateAccount.js';
 
