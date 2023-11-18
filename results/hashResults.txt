@@ -1,2 +1,2 @@
-Original image bytes : 04ed9d19c636cc765c334d2851dfbb8a574cc758f1eb53d1cac90eb7a9ac5459
-Encrypted image bytes: 4d9f35e5ac010fb1069bdfaddaf5d3e1844c8e49574d9a7e8bb4dd306fc1cad6
+Original image bytes : c750bcbd8607193a75c5479b51959a2b29caf891efc12bb4276921ed296ad4de
+Encrypted image bytes: a5c72c4cdaa6de1a728beba1b040315fb5f0b390bff025a477ca47c5b591d662
