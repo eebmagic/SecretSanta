@@ -53,25 +53,32 @@ def genGraph(N, banned={}):
     return G, edges
 
 
-# Load the names
-with open('names.json') as file:
-    data = json.load(file)
-    names = data['names']
-    bannedPairs = data['bannedPairs']
+with open('users.json') as file:
+    users = json.load(file)
+    names = list(users.keys())
+    labels = {user: users[user]['firstname'].split(' ')[0] for user in users}
+with open('blacklist.json') as file:
+    bannedPairs = json.load(file)
+
 print(f"There are: {len(names)} names")
 bans = {}
 for a, b in bannedPairs:
     bans[a] = bans.get(a, []) + [b]
     bans[b] = bans.get(b, []) + [a]
+print(f"Made bans: {bans}")
 
 
 # Make the graph
 G, edges = genGraph(names, banned=bans)
 edgeStr = json.dumps(edges, indent=2)
 
+
 # Make the plot image
+plt.figure(figsize=(20, 15))
 pos = nx.planar_layout(G)
-nx.draw(G, pos, with_labels=True)
+nx.draw_networkx_nodes(G, pos)
+nx.draw_networkx_edges(G, pos)
+nx.draw_networkx_labels(G, pos, labels)
 
 ## Get bytes for plot image
 imgData = io.BytesIO()
@@ -84,6 +91,6 @@ plotBytes = imgData.getvalue()
 saveFiles(edgeStr, plotBytes)
 
 
+# Optionally display results
 print(edgeStr)
 plt.show()
-
