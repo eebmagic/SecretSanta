@@ -3,6 +3,7 @@ import random
 import json
 import io
 import argparse
+import hashlib
 
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -32,9 +33,12 @@ def genGraph(N, banned={}):
     validShuffle = False
     while not validShuffle:
         random.shuffle(available)
+        print(f"Shuffled: {hashlib.sha256(str(available).encode()).hexdigest()[:8]}")
 
         # Check that no one is buying for themselves
         noSelfLoops = not any([name == available[i] for i, name in enumerate(original)])
+        if not noSelfLoops:
+            print("Reshuffling because of self loop")
 
         # Check that there are no pairs on the blacklist
         noBannedEdges = True
