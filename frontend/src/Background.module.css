@@ -1,0 +1,23 @@
+.backgroundContainer {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Adjust height as needed */
+    background-image: url('images/square.png'); /* Set your image path here */
+    background-size: cover;
+    background-position: center;
+}
+  
+.blackOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1; /* Ensure it's above the background image */
+}
+
+.mainContent {
+    position: relative;
+    z-index: 2; /* Ensure it's above the overlay */
+}

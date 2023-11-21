@@ -8,6 +8,7 @@ import 'primeicons/primeicons.css';                        //icons
 import Login from './Login.js';
 import CreateAccount from './CreateAccount.js';
 import Results from './Results.js'
+import Background from './Background';
 
 import { Toast } from 'primereact/toast';
 
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <div>
+      <Background>
       <Toast ref={toast} />
       {
         showLogin ? (
@@ -66,6 +68,7 @@ function App() {
           />
         ) : null
       }
+      </Background>
     </div>
   );
 }
