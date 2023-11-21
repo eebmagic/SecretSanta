@@ -73,5 +73,10 @@
     "firstname": "Will Skillen",
     "password": "$2b$10$MYC6eEfYagivnTyoeo6Bouv96PnYIv/A0kwvPqCiuHh4doBUNQ8di",
     "contact": "7704909363"
+  },
+  "lonnie": {
+    "firstname": "lonnie",
+    "password": "$2b$10$ZtrGJolDPd7J11gcYNuqv.NaeAi/tVX3U3bv.s8MScpPSOEqrFrWy",
+    "contact": "5633799928"
   }
 }
