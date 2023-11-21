@@ -20,6 +20,7 @@ const options = {
 var users = JSON.parse(fs.readFileSync('users.json'));
 
 const getAssignee = (username) => {
+  var users = JSON.parse(fs.readFileSync('users.json'));
   const key = fs.readFileSync('results/key.key', { encoding: 'utf-8' });
   const encrypted = fs.readFileSync('results/map.json.enc', { encoding: 'utf-8' });
 
@@ -33,8 +34,14 @@ const getAssignee = (username) => {
     const decoded = token.decode();
     const map = JSON.parse(decoded);
 
-    const assignee = map[username];
-    return assignee;
+    const assigneeUsername = map[username];
+    const assignee = users[assigneeUsername];
+    const body = {
+      username: assigneeUsername,
+      firstname: assignee.firstname,
+      contact: assignee.contact
+    }
+    return body;
   } catch (error) {
     console.error('Decryption failed:', error);
     return null;
@@ -68,14 +75,12 @@ app.post('/login', async (req, res) => {
 
   if (users[username] && await bcrypt.compare(password, validHash)) {
     const assignee = getAssignee(username);
-    const assigneeBody = users[assignee];
-    delete assigneeBody.password
 
     const body = {
       username: username,
       firstname: users[username].firstname,
       contact: users[username].contact,
-      assignee: assigneeBody
+      assignee: assignee
     };
     res.status(200).send(body);
 
