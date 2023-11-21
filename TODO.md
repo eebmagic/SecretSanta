@@ -23,5 +23,3 @@
 ### Yet to create account
 - Zack
 - Effie
-- Lonnie
-- Will
