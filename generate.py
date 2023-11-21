@@ -99,8 +99,11 @@ plotBytes = imgData.getvalue()
 saveFiles(edgeStr, plotBytes)
 
 # Rest the logins file (no users have seen the latest results)
+with open('logins.json') as file:
+    oldLogs = json.load(file)
+
 with open('logins.json', 'w') as file:
-    logs = {user: None for user in users}
+    logs = {user: (oldLogs[user] if user in oldLogs else None) for user in users}
     json.dump(logs, file, indent=2)
 
 # Optionally display results
