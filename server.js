@@ -81,6 +81,7 @@ app.post('/login', async (req, res) => {
       username: username,
       firstname: users[username].firstname,
       contact: users[username].contact,
+      recs: users[username].recs,
       assignee: assignee
     };
     res.status(200).send(body);
