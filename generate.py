@@ -84,7 +84,7 @@ edgeStr = json.dumps(edges, indent=2)
 # Make the plot image
 plt.figure(figsize=(20, 15))
 pos = nx.planar_layout(G)
-nx.draw_networkx_nodes(G, pos)
+nx.draw_networkx_nodes(G, pos, node_color="#f74545")
 nx.draw_networkx_edges(G, pos)
 nx.draw_networkx_labels(G, pos, labels)
 
