@@ -55,12 +55,13 @@ const updateLogin = (username) => {
   const estTime = moment().tz('America/New_York').format('YYYY-MM-DD HH:mm:ss');
   logins[username] = estTime;
   fs.writeFileSync('logins.json', JSON.stringify(logins, null, 2));
-  console.log(`User ${username} logged in: ${estTime}`);
+  console.log(`${estTime} User ${username} logged in: ${estTime}`);
 }
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  console.log(`Login attempt for ${username}`);
+  const time = moment().tz('America/New_York').format('YYYY-MM-DD HH:mm:ss');
+  console.log(`${time} Login attempt for ${username}`);
   users = JSON.parse(fs.readFileSync('users.json'));
 
   if (!users[username]) {
@@ -96,7 +97,8 @@ app.post('/create', async (req, res) => {
   users = JSON.parse(fs.readFileSync('users.json'));
   const { username, firstname, password, contact } = req.body;
 
-  console.log(`Creating account for ${username}: ${firstname}`);
+  const time = moment().tz('America/New_York').format('YYYY-MM-DD HH:mm:ss');
+  console.log(`${time} Creating account for ${username}: ${firstname}`);
 
   if (users[username]) {
     res.status(409).send("Username already exists");
@@ -119,7 +121,8 @@ app.post('/recs', async (req, res) => {
   users = JSON.parse(fs.readFileSync('users.json'));
   const { username, recs } = req.body;
 
-  console.log(`Updating recs for ${username} : ${recs}`);
+  const time = moment().tz('America/New_York').format('YYYY-MM-DD HH:mm:ss');
+  console.log(`${time} Updating recs for ${username} : ${recs}`);
   if (users[username]) {
     users[username].recs = recs;
     fs.writeFileSync('users.json', JSON.stringify(users, null, 2));
