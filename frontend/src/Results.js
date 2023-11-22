@@ -40,6 +40,13 @@ function Results({ data, showResults }) {
                             onClick={copyToClipboard}
                         />
                     </div>
+                    {
+                        data.assignee.recs ? (
+                            <p className={styles.customParagraph}>
+                                Your recipient has given these recommendations: <strong>{data.assignee.recs}</strong>
+                            </p>
+                        ) : null
+                    }
                 </Panel>
                 <div className={styles.customDrawing}>
                     <svg viewBox="0 0 200 235" transform="translate(0, 0) scale(1)">
