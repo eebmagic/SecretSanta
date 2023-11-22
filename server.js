@@ -114,6 +114,20 @@ app.post('/create', async (req, res) => {
   }
 });
 
+app.post('/recs', async (req, res) => {
+  users = JSON.parse(fs.readFileSync('users.json'));
+  const { username, recs } = req.body;
+
+  console.log(`Updating recs for ${username} : ${recs}`);
+  if (users[username]) {
+    users[username].recs = recs;
+    fs.writeFileSync('users.json', JSON.stringify(users, null, 2));
+    res.status(200).send("Recs updated!");
+  } else {
+    res.status(404).send("User not found");
+  }
+})
+
 const PORT = process.env.PORT || 5050;
 https.createServer(options, app).listen(PORT, () => {
 // app.listen(PORT, () => {
