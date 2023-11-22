@@ -108,7 +108,8 @@ app.post('/create', async (req, res) => {
     users[username] = {
       firstname: firstname,
       password: hash,
-      contact: contact || ""
+      contact: contact || "",
+      recs: ""
     };
 
     fs.writeFileSync('users.json', JSON.stringify(users, null, 2));
