@@ -39,11 +39,12 @@ const getAssignee = (username) => {
     const body = {
       username: assigneeUsername,
       firstname: assignee.firstname,
-      contact: assignee.contact
+      contact: assignee.contact,
+      recs: assignee.recs
     }
     return body;
   } catch (error) {
-    console.error('Decryption failed:', error);
+    console.error('Decryption or asignee pull failed:', error);
     return null;
   }
 }
