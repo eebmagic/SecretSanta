@@ -2,7 +2,7 @@
   "eebmagic": {
     "firstname": "Everett",
     "password": "$2b$10$aWoBX5i0oB3fnD2ROeor8OC7H2JkMNiGouC0hIoRoizPzfmJ6TGV.",
-    "contact": "phone number: 334-796-2525"
+    "contact": "334-796-2525"
   },
   "GMenon": {
     "firstname": "Gayatri",
@@ -50,7 +50,7 @@
     "contact": "9544716922"
   },
   "Stanimal": {
-    "firstname": "Stanny ",
+    "firstname": "Stanny",
     "password": "$2b$10$7wBwuSd8gcWG5SnVAgSifeEPUvaTAva3QnlFqZeHF6VDQCYV2cCiC",
     "contact": "7064149835"
   },
@@ -78,5 +78,20 @@
     "firstname": "lonnie",
     "password": "$2b$10$ZtrGJolDPd7J11gcYNuqv.NaeAi/tVX3U3bv.s8MScpPSOEqrFrWy",
     "contact": "5633799928"
+  },
+  "Effie": {
+    "firstname": "Effie",
+    "password": "$2b$10$oI/1eWDMO.T8ipGDaXt42.BuIDGxjGPIbtmUjgNSRgUbi558DwOhi",
+    "contact": "5106799167"
+  },
+  "Squid7201": {
+    "firstname": "Zack",
+    "password": "$2b$10$Q9cobTWh1qwAn6R5pacNt.hi/.wDLW7GrHsK31zM7pfExuTX0mitu",
+    "contact": "7069416234"
+  },
+  "kawehrenberg": {
+    "firstname": "Kate",
+    "password": "$2b$10$zCrZgq4q3cq8oFyCZynqgOb1iusr/N2Jgu8kvtBjRx3ztdD/BBhl2",
+    "contact": "3125322945"
   }
 }
