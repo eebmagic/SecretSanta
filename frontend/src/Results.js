@@ -92,6 +92,7 @@ function Results({ data, showResults, toast }) {
                         label="Submit Recs"
                         onClick={() => sendRecs(recsBox)}
                     />
+                    <p>NOTE: Every time you submit will just replace your recs.</p>
                 </Panel>
                 <div className={styles.customDrawing}>
                     <svg viewBox="0 0 200 235" transform="translate(0, 0) scale(1)">
@@ -127,6 +128,7 @@ function Results({ data, showResults, toast }) {
                     label="Submit Recs"
                     onClick={() => sendRecs(recsBox)}
                 />
+                <p>NOTE: Every time you submit will just replace your recs.</p>
             </Panel>
         );
 
