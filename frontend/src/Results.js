@@ -54,7 +54,7 @@ function Results({ data, showResults }) {
                             <GiftDrawing />
                         </g>
                         <g transform="translate(60, 40) rotate(-15, 0, 0) scale(0.7)">
-                            <GiftTag from={data.firstname} to={data.assignee.firstname} />
+                            <GiftTag from={data.firstname.split(" ")[0]} to={data.assignee.firstname.split(" ")[0]} />
                         </g>
                     </svg>
                 </div>
