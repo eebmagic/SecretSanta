@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Panel } from 'primereact/panel';
 import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
 import { Toast } from 'primereact/toast';
 import styles from './Results.module.css';
 
 import GiftDrawing from './GiftDrawing.js';
 import GiftTag from './GiftTag.js';
 
-function Results({ data, showResults }) {
-    const toast = React.useRef(null);
+const ENDPOINT = "https://fishbowl.lol:5050/recs";
+
+function Results({ data, showResults, toast }) {
+    const [recsBox, setRecsBox] = useState("");
 
     const copyToClipboard = () => {
         toast.current.show({
@@ -16,6 +19,32 @@ function Results({ data, showResults }) {
             summary: 'Copied to clipboard!',
         });
         navigator.clipboard.writeText(data.assignee.contact);
+    }
+
+    const sendRecs = (recs) => {
+        console.log(`SENDING RECS: ${recs}`);
+        fetch(ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: data.username,
+                recs: recs
+            })
+        }).then(res => {
+            if (res.ok) {
+                toast.current.show({
+                    severity: 'success',
+                    summary: 'Recs updated!',
+                });
+            } else {
+                toast.current.show({
+                    severity: 'error',
+                    summary: `Error updating recs: ${res}`,
+                });
+            }
+        })
     }
 
     if (showResults) {
@@ -43,10 +72,26 @@ function Results({ data, showResults }) {
                     {
                         data.assignee.recs ? (
                             <p className={styles.customParagraph}>
-                                Your recipient has given these recommendations: <strong>{data.assignee.recs}</strong>
+                                {data.assignee.firstname.split(" ")[0]} has given these recommendations: <strong>{data.assignee.recs}</strong>
                             </p>
-                        ) : null
+                        ) : (
+                            <p className={styles.customParagraph}>
+                                {data.assignee.firstname.split(" ")[0]} hasn't given any recommendations yet 😕
+                            </p>
+                        )
                     }
+                    <p className={styles.customParagraph}>
+                        You've given these recs (to your own secret Santa): <strong>{data.recs}</strong>
+                    </p>
+                    <InputText
+                        value={recsBox}
+                        onChange={(e) => setRecsBox(e.target.value)}
+                        placeholder="update your recs"
+                    />
+                    <Button
+                        label="Submit Recs"
+                        onClick={() => sendRecs(recsBox)}
+                    />
                 </Panel>
                 <div className={styles.customDrawing}>
                     <svg viewBox="0 0 200 235" transform="translate(0, 0) scale(1)">
@@ -70,6 +115,18 @@ function Results({ data, showResults }) {
                 <p className={styles.customParagraph}>
                     Assignments aren't out yet, but when they are you'll find them here 😊
                 </p>
+                <p className={styles.customParagraph}>
+                    You've given these recommendations: <strong>{data.recs}</strong>
+                </p>
+                <InputText
+                    value={recsBox}
+                    onChange={(e) => setRecsBox(e.target.value)}
+                    placeholder="update your recs"
+                />
+                <Button
+                    label="Submit Recs"
+                    onClick={() => sendRecs(recsBox)}
+                />
             </Panel>
         );
 
