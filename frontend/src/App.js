@@ -12,7 +12,7 @@ import Background from './Background';
 
 import { Toast } from 'primereact/toast';
 
-const SHOW_ASSIGNMENT = true;
+const SHOW_ASSIGNMENT = false;
 
 function App() {
   const [showLogin, setShowLogin] = useState(true);
