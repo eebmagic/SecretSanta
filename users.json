@@ -28,5 +28,23 @@
     "password": "$2b$10$SdE8ddSoz8LDENbujG5Ccui5nKC8XwC2pmLO1P3tPlz5pNNT0xvg6",
     "contact": "9126558822",
     "recs": ""
+  },
+  "katehub": {
+    "firstname": "Kate",
+    "password": "$2b$10$xTF5h/NBfit1//uE.JnhauGg67LT.OLzHWPKl7sxftYYzsjmWt6qe",
+    "contact": "y’all know my phone number",
+    "recs": ""
+  },
+  "jaredabrahamian": {
+    "firstname": "Jared",
+    "password": "$2b$10$zVkBNBJ3QTK8Y375J3RTKOHxfGxfrA331bJsratMLBnVqErHk524i",
+    "contact": "7705809867",
+    "recs": ""
+  },
+  "Louisebi": {
+    "firstname": "Louise",
+    "password": "$2b$10$s4rctxBlCNk3wY1YGnTXbOMSYKh5pR1XFLFjY2nZ/bhmC3Qrpuiwm",
+    "contact": "louise.binetruy01@gmail.com",
+    "recs": ""
   }
 }
